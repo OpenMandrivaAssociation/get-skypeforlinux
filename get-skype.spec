@@ -22,19 +22,19 @@ URL:		http://www.skype.com
 Buildarch:	noarch
 
 Requires:	wget
-Requires:	liblcms1
-Requires:	libmng1
-Requires:	libqtcore4
-Requires:	libqtdbus4
-Requires:	libqtnetwork4
-Requires:	libqtgui4
-Requires:	libqtsvg4
-Requires:	libqtxml4
-Requires:	libxscrnsaver1
-Requires:	libxv1
+Requires:	liblcms.so.1
+Requires:	libmng.so.1
+Requires:	libQtCore.so.4
+Requires:	libQtDBus.so.4
+Requires:	libQtNetwork.so.4
+Requires:	libQtGui.so.4
+Requires:	libQtSvg.so.4
+Requires:	libQtXml.so.4
+Requires:	libXss.so.1
+Requires:	libXv.so.1
 Requires:	libv4l-wrappers
-Requires:	libalsa2
-Requires:	libpulseaudio0
+Requires:	libasound.so.2
+Requires:	libpulse.so.0
 
 Obsoletes:	skype < 2.2.0.35
 Provides:	skype = %{version}-%{release}
