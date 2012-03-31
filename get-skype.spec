@@ -1,6 +1,6 @@
 %define name			get-skype
 %define version			2.2.0.35
-%define release			%mkrel 2
+%define release			%mkrel 3
 %define instdir			%{_datadir}/skype
 %define langdir			%{instdir}/lang
 %define avatardir		%{instdir}/avatars
