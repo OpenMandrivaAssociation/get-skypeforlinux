@@ -1,6 +1,3 @@
-%define name			get-skype
-%define version			2.2.0.35
-%define release			%mkrel 3
 %define instdir			%{_datadir}/skype
 %define langdir			%{instdir}/lang
 %define avatardir		%{instdir}/avatars
@@ -12,29 +9,34 @@
 %define md5			b60a19345ee7b3522b5fe4047150aaf8
 %define tmp_download_dir	%{_localstatedir}/lib/%{name}
 
+# Don't generate dependencies for bundled libs
+AutoReqProv:	no
+
 Summary:	Download and Install Skype
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
+Name:		get-skype
+Version:	2.2.0.35
+Release:	4
 License:	Proprietary
 Group:		Networking/Instant messaging
 URL:		http://www.skype.com
-Buildarch:	noarch
 
 Requires:	wget
-Requires:	liblcms.so.1
-Requires:	libmng.so.1
-Requires:	libQtCore.so.4
-Requires:	libQtDBus.so.4
-Requires:	libQtNetwork.so.4
-Requires:	libQtGui.so.4
-Requires:	libQtSvg.so.4
-Requires:	libQtXml.so.4
-Requires:	libXss.so.1
-Requires:	libXv.so.1
+
+%ifarch %{ix86}
+Requires:	liblcms1
+Requires:	libmng1
+Requires:	libqtcore4
+Requires:	libqtdbus4
+Requires:	libqtnetwork4
+Requires:	libqtgui4
+Requires:	libqtsvg4
+Requires:	libqtxml4
+Requires:	libxscrnsaver1
+Requires:	libxv1
 Requires:	libv4l-wrappers
-Requires:	libasound.so.2
-Requires:	libpulse.so.0
+Requires:	libalsa2
+Requires:	libpulseaudio0
+%endif
 
 Obsoletes:	skype < 2.2.0.35
 Provides:	skype = %{version}-%{release}
@@ -50,7 +52,11 @@ Source2:	lang-%{version}.txt
 Source3:	skype-txt-gen
 # Manually created skype.desktop to replace invalid original in tar.bz2
 Source4:	skype.desktop
+# Dependencies for x86_64 package
+Source5:	skypelibs.tar.xz
+Source100:	%name.rpmlintrc
 
+ExclusiveArch:	%ix86 x86_64
 
 %description
 This is an installer for Skype-%{version}.
@@ -108,9 +114,28 @@ while read line; do
 touch %{buildroot}%{langdir}/skype_"$line"
 done < %{SOURCE2}
 
-echo "#!/bin/bash
-LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so %{instdir}/skype"\
+%ifarch x86_64
+install -d -m 0755 %{buildroot}/opt
+tar Jxf %{SOURCE5} -C %{buildroot}/opt
+
+echo '#!/bin/bash
+if [ "`pidof skype`" != "" ]; then
+    echo "Skype is already running!"
+else
+    LD_LIBRARY_PATH=/opt/skypelibs LD_PRELOAD=/opt/skypelibs/v4l2convert.so exec %{instdir}/skype "$@"
+fi' \
  > %{buildroot}%{_bindir}/skype && chmod +x %{buildroot}%{_bindir}/skype
+%endif
+
+%ifarch %{ix86}
+echo '#!/bin/bash
+if [ "`pidof skype`" != "" ]; then
+    echo "Skype is already running!"
+else
+    LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so exec %{instdir}/skype "$@"
+fi' \
+ > %{buildroot}%{_bindir}/skype && chmod +x %{buildroot}%{_bindir}/skype
+%endif
 
 
 %post
@@ -155,9 +180,27 @@ rm -r ${tmp_extract_dir} %{tmp_download_dir}
 %files
 %ghost %doc %{docdir}
 %{_bindir}/skype
+%ifarch x86_64
+/opt/skypelibs
+%endif
 %attr(0644, root, root) %{_datadir}/applications/skype.desktop
 %ghost %{_iconsdir}/skype.png
 %ghost %{_iconsdir}/SkypeBlue_*.png
 %ghost %{instdir}
 %ghost %{dbusdir}/skype.conf
+
+
+
+%changelog
+* Wed May 02 2012 Andrew Lukoshko <andrew.lukoshko@rosalab.ru> 2.2.0.35-4
+- use bundled libs in x86_64 package
+- allow to run only one skype process
+
+* Thu Oct 06 2011 Andrey Bondrov <abondrov@mandriva.org> 2.2.0.35-2mdv2011.0
++ Revision: 703282
+- Rebuild
+
+* Mon Oct 03 2011 Andrey Bondrov <abondrov@mandriva.org> 2.2.0.35-1
++ Revision: 702497
+- imported package get-skype
 
