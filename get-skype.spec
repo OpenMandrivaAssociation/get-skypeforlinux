@@ -15,7 +15,7 @@ AutoReqProv:	no
 Summary:	Download and Install Skype
 Name:		get-skype
 Version:	2.2.0.35
-Release:	4
+Release:	5
 License:	Proprietary
 Group:		Networking/Instant messaging
 URL:		http://www.skype.com
@@ -23,19 +23,19 @@ URL:		http://www.skype.com
 Requires:	wget
 
 %ifarch %{ix86}
-Requires:	liblcms1
-Requires:	libmng1
-Requires:	libqtcore4
-Requires:	libqtdbus4
-Requires:	libqtnetwork4
-Requires:	libqtgui4
-Requires:	libqtsvg4
-Requires:	libqtxml4
-Requires:	libxscrnsaver1
-Requires:	libxv1
-Requires:	libv4l-wrappers
-Requires:	libalsa2
-Requires:	libpulseaudio0
+Requires:	liblcms.so.1
+Requires:	libmng.so.1
+Requires:	libQtCore.so.4
+Requires:	libQtDBus.so.4
+Requires:	libQtNetwork.so.4
+Requires:	libQtGui.so.4
+Requires:	libQtSvg.so.4
+Requires:	libQtXml.so.4
+Requires:	libXss.so.1
+Requires:	libXv.so.1
+Requires:	v4l2convert.so.0
+Requires:	libasound.so.2
+Requires:	libpulse.so.0
 %endif
 
 Obsoletes:	skype < 2.2.0.35
