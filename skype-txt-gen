@@ -1,0 +1,71 @@
+#!/bin/bash
+#
+# skype-txt-gen
+#
+# This file should be located in SOURCES in the rpm build tree.
+# $ chmod +x skype-txt-gen
+# CD to SOURCES and run with 
+# $ ./skype-get-txt <version>
+# Example:-
+# $ ./skype-get-txt 2.2.0.35
+# New versions of the txt files will be written in SOURCES.
+# skype-<version>.md5 is also generated in SOURCES.
+#########################################################
+
+[[ ${#1} != 0 ]] || { echo "Usage:   $ ./skype-txt-gen <version>"; exit 1; }
+
+version=$1
+
+download()
+{
+mkdir -p ../tmp/tmp_down || exit 1
+cd ../tmp/tmp_down || exit 1
+wget -nc "http://download.skype.com/linux/skype-$version.tar.bz2"
+md5chk=$(md5sum skype-$version.tar.bz2 | cut -d' ' -f1)
+tar jxf skype-$version.tar.bz2
+[[ -d skype-$version ]] || exit 1
+cd ../../SOURCES
+}
+
+getavatars()
+{
+rm -f avatars-"$version".txt 
+cd ../tmp/tmp_down/skype-$version/avatars
+for item in *
+do
+echo $item >> ../../../../SOURCES/avatars-"$version".txt 
+done
+cd ../../../../SOURCES
+}
+
+getsounds() 
+{
+rm -f sounds-"$version".txt
+cd ../tmp/tmp_down/skype-$version/sounds
+for item in *
+do
+echo $item >> ../../../../SOURCES/sounds-"$version".txt
+done
+cd ../../../../SOURCES
+}
+
+getlang() 
+{
+rm -f lang-"$version".txt
+cd ../tmp/tmp_down/skype-$version/lang
+for item in *
+do
+echo $item >> ../../../../SOURCES/lang-"$version".txt
+done
+sed -i 's/skype_//g' ../../../../SOURCES/lang-"$version".txt
+cd ../../../../SOURCES
+}
+
+download
+getavatars
+getsounds
+getlang
+
+echo $md5chk > skype-$version.md5
+
+rm -rf ../tmp/tmp_down

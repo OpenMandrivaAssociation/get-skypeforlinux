@@ -1,8 +1,2 @@
 sources:
-  "avatars-2.2.0.35.txt:"	5cae94f7b592bbd45950a32b242c1d1cdf3e5a8c
-  "get-skype.rpmlintrc:"	0ffc691f0caaeda1a2ca1290b78bd02a79ae5de6
-  "lang-2.2.0.35.txt:"	8841014b54d9fda3f067e35b7f88636a81173b83
-  "skype.desktop:"	0ff63474ed52e3de3b7bb442b7828a8696fb7b51
-  "skypelibs.tar.xz:"	7a1bb298f05fca840c5ee68ed98388141c2a56a9
-  "skype-txt-gen:"	d2b72614817f69cae1ff6a9afbf3bd1a22738481
-  "sounds-2.2.0.35.txt:"	96f8405da2d5430dbfee4fe501efbc5d73fcfbee
+  skypelibs.tar.xz: 7a1bb298f05fca840c5ee68ed98388141c2a56a9
