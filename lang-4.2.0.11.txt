@@ -1,5 +1,7 @@
 bg.qm
 bg.ts
+cs.qm
+cs.ts
 de.qm
 de.ts
 en.qm
@@ -20,6 +22,8 @@ lt.qm
 lt.ts
 lv.qm
 lv.ts
+no.qm
+no.ts
 pl.qm
 pl.ts
 pt_br.qm

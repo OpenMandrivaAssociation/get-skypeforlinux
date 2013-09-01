@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Skype
 Comment=Skype Internet Telephony
+Comment[ru]=Интернет-телефон Skype
 Exec=skype
 Icon=skype
 Terminal=false

@@ -1,2 +1,2 @@
-# Unfortunate, but binary blobs suck...
+#many files in opt
 addFilter("E: dir-or-file-in-opt")

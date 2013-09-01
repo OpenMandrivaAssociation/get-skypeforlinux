@@ -7,7 +7,7 @@
 # CD to SOURCES and run with 
 # $ ./skype-get-txt <version>
 # Example:-
-# $ ./skype-get-txt 2.2.0.35
+# $ ./skype-get-txt 4.0.0.8
 # New versions of the txt files will be written in SOURCES.
 # skype-<version>.md5 is also generated in SOURCES.
 #########################################################
