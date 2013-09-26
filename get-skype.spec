@@ -1,6 +1,6 @@
 %define name			get-skype
 %define version			4.2.0.11
-%define release			2
+%define release			3
 %define instdir			%{_datadir}/skype
 %define langdir			%{instdir}/lang
 %define avatardir		%{instdir}/avatars
@@ -14,7 +14,7 @@ ExclusiveArch: %{ix86} x86_64
 # is correct
 
 # %ifarch %{x86_64}
-%define tar_name		skype_static
+%define tar_name		skype
 %define md5			f749e1c109fbe182b44d462d04f46bee
 # %endif
 
