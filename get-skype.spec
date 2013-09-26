@@ -1,6 +1,6 @@
 %define name			get-skype
 %define version			4.2.0.11
-%define release			3
+%define release			4
 %define instdir			%{_datadir}/skype
 %define langdir			%{instdir}/lang
 %define avatardir		%{instdir}/avatars
@@ -95,7 +95,7 @@ mkdir -p %{tmp_download_dir}
 cd %{tmp_download_dir} || exit 1
 
 %ifarch x86_64
-wget --force-clobber --timeout=30 --tries=3 "http://download.skype.com/linux/skype_static-%{version}.tar.bz2"
+wget --force-clobber --timeout=30 --tries=3 "http://download.skype.com/linux/skype-%{version}.tar.bz2"
 %endif
 
 %ifarch %{ix86}
