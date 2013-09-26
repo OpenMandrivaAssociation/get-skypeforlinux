@@ -8,7 +8,7 @@
 %define docdir			%{_datadir}/doc/skype
 %define dbusdir			%{_sysconfdir}/dbus-1/system.d
 
-ExclusiveArch: %{ix86}
+ExclusiveArch: %{ix86} x86_64
 
 # When updating tarball check that download size in description
 # is correct
