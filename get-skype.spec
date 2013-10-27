@@ -1,21 +1,16 @@
-%define name			get-skype
-%define version			4.2.0.11
-%define release			4
-%define instdir			%{_datadir}/skype
-%define langdir			%{instdir}/lang
-%define avatardir		%{instdir}/avatars
-%define sounddir		%{instdir}/sounds
-%define docdir			%{_datadir}/doc/skype
-%define dbusdir			%{_sysconfdir}/dbus-1/system.d
-
-ExclusiveArch: %{ix86} x86_64
+%define instdir %{_datadir}/skype
+%define langdir %{instdir}/lang
+%define avatardir %{instdir}/avatars
+%define sounddir %{instdir}/sounds
+%define docdir %{_datadir}/doc/skype
+%define dbusdir %{_sysconfdir}/dbus-1/system.d
 
 # When updating tarball check that download size in description
 # is correct
 
 # %ifarch %{x86_64}
 %define tar_name		skype
-%define md5			f749e1c109fbe182b44d462d04f46bee
+%define md5			6e9553a6368853c647b1c5ad7f3cc99b
 # %endif
 
 %ifarch %{ix86}
@@ -23,22 +18,17 @@ ExclusiveArch: %{ix86} x86_64
 %define md5			6e9553a6368853c647b1c5ad7f3cc99b
 %endif
 
-
 %define tmp_download_dir	%{_localstatedir}/lib/%{name}
 
-# Don't generate dependencies for bundled libs
-AutoReqProv:	no
-
 Summary:	Download and Install Skype
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
+Name:		get-skype
+Version:	4.2.0.11
+Release:	5
 License:	Proprietary
 Group:		Networking/Instant messaging
 URL:		http://www.skype.com
-
 Requires:	wget
-
+Requires:	v4l-wrappers
 %ifarch %{ix86}
 Requires:	liblcms1
 Requires:	libmng1
@@ -77,6 +67,9 @@ Source4:	skype.desktop
 Source5:	skypelibs.tar.xz
 # Disable rpmlint for /opt
 Source6:	get-skype.rpmlintrc
+ExclusiveArch: %{ix86} x86_64
+# Don't generate dependencies for bundled libs
+AutoReqProv:	no
 
 %description
 This is an installer for Skype-%{version}.
@@ -85,7 +78,7 @@ This package does not contain any program files as the Skype license does
 not allow distribution. By installing this package you will download and
 install Skype from skype.com.
 You must accept the Skype EULA before using it.
-Please be patient, this is a 23 MB download and may take some time.
+Please be patient, this is a 16 MB download and may take some time.
 Removing this package will uninstall Skype from your system.
 
 
