@@ -4,55 +4,47 @@
 %define sounddir %{instdir}/sounds
 %define docdir %{_datadir}/doc/skype
 %define dbusdir %{_sysconfdir}/dbus-1/system.d
-
 # When updating tarball check that download size in description
 # is correct
-
-# %ifarch %{x86_64}
-%define tar_name		skype
-%define md5			6e9553a6368853c647b1c5ad7f3cc99b
-# %endif
-
-%ifarch %{ix86}
-%define tar_name		skype
-%define md5			6e9553a6368853c647b1c5ad7f3cc99b
-%endif
-
-%define tmp_download_dir	%{_localstatedir}/lib/%{name}
+%define md5 6e9553a6368853c647b1c5ad7f3cc99b
+%define tmp_download_dir %{_localstatedir}/lib/%{name}
 
 Summary:	Download and Install Skype
 Name:		get-skype
 Version:	4.2.0.11
-Release:	5
+Release:	6
 License:	Proprietary
 Group:		Networking/Instant messaging
 URL:		http://www.skype.com
-Requires:	wget
-Requires:	v4l-wrappers
-%ifarch %{ix86}
-Requires:	liblcms1
-Requires:	libmng1
-Requires:	libqtcore4
-Requires:	libqtdbus4
-Requires:	libqtnetwork4
-Requires:	libqtwebkit4
-Requires:	libqtgui4
-Requires:	libqtsvg4
-Requires:	libqtxml4
-Requires:	libxscrnsaver1
-Requires:	libxv1
-Requires:	libv4l-wrappers
-Requires:	libalsa2
-Requires:	libpulseaudio0
-%endif
-%ifarch x86_64
-Requires:	libz1
-%endif
+BuildArch:	noarch
 
+Requires(pre):	wget
+Requires:	v4l-wrappers
+# (fwang) these requires comes from combine of `objdump -x skype|grep NEEDED`
+# and `strings skype|grep lib.*.so`
+Requires:	libasound.so.2
+Requires:	libXv.so.1
+Requires:	libXss.so.1
+Requires:	librt.so.1
+Requires:	libdl.so.2
+Requires:	libX11.so.6
+Requires:	libXext.so.6
+Requires:	libQtDBus.so.4
+Requires:	libQtWebKit.so.4
+Requires:	libQtXml.so.4
+Requires:	libQtGui.so.4
+Requires:	libQtNetwork.so.4
+Requires:	libQtCore.so.4
+Requires:	libpthread.so.0
+Requires:	libpulse.so.0
+Requires:	libstdc++.so.6
+Requires:	libm.so.6
+Requires:	libgcc_s.so.1
+Requires:	libc.so.6
 Obsoletes:	skype < %{version}
 Provides:	skype = %{version}-%{release}
 
-# The following are lists of filenames (124 in total) placed 
+# The following are lists of filenames (128 in total) placed 
 # in versioned text files to save clutter in the spec file.
 Source0:	avatars-%{version}.txt
 Source1:	sounds-%{version}.txt
@@ -63,11 +55,8 @@ Source2:	lang-%{version}.txt
 Source3:	skype-txt-gen
 # Manually created skype.desktop to replace invalid original in tar.bz2
 Source4:	skype.desktop
-# Dependencies for x86_64 package
-Source5:	skypelibs.tar.xz
-# Disable rpmlint for /opt
-Source6:	get-skype.rpmlintrc
-ExclusiveArch: %{ix86} x86_64
+Source5:	get-skype.rpmlintrc
+#ExclusiveArch:	%{ix86} x86_64
 # Don't generate dependencies for bundled libs
 AutoReqProv:	no
 
@@ -86,20 +75,11 @@ Removing this package will uninstall Skype from your system.
 mkdir -p %{tmp_download_dir}
 [[ -d %{tmp_download_dir} ]] || exit 1
 cd %{tmp_download_dir} || exit 1
-
-%ifarch x86_64
 wget --force-clobber --timeout=30 --tries=3 "http://download.skype.com/linux/skype-%{version}.tar.bz2"
-%endif
-
-%ifarch %{ix86}
-wget --force-clobber --timeout=30 --tries=3 "http://download.skype.com/linux/skype-%{version}.tar.bz2"
-%endif
-
-[[ -f %{tar_name}-%{version}.tar.bz2 ]] || { echo "Download failed"; rm -r %{tmp_download_dir}; exit 1; }
-md5chk=$(md5sum %{tar_name}-%{version}.tar.bz2 | cut -d' ' -f1)
-[[ %{md5} = $md5chk ]] || { echo "Download checksum failed"; rm %{tar_name}-%{version}.tar.bz2;\
+[[ -f skype-%{version}.tar.bz2 ]] || { echo "Download failed"; rm -r %{tmp_download_dir}; exit 1; }
+md5chk=$(md5sum skype-%{version}.tar.bz2 | cut -d' ' -f1)
+[[ %{md5} = $md5chk ]] || { echo "Download checksum failed"; rm skype-%{version}.tar.bz2;\
 cd ..; rm -r %{tmp_download_dir}; exit 1; }
-
 
 %install
 install -d -m 0755 %{buildroot}%{_bindir}
@@ -115,7 +95,7 @@ touch %{buildroot}%{docdir}/{LICENSE,README}
 install -d -m 0755 %{buildroot}%{instdir}/icons
 install -d -m 0755 %{buildroot}%{_iconsdir}
 touch %{buildroot}%{_iconsdir}/skype.png
-for i in 16 32 48; do
+for i in 16 32 48 64 96 128 256; do
 touch %{buildroot}%{_iconsdir}/SkypeBlue_${i}x${i}.png
 touch %{buildroot}%{instdir}/icons/SkypeBlue_${i}x${i}.png
 done
@@ -135,55 +115,28 @@ while read line; do
 touch %{buildroot}%{langdir}/skype_"$line"
 done < %{SOURCE2}
 
-%ifarch x86_64
-install -d -m 0755 %{buildroot}/opt
-tar Jxf %{SOURCE5} -C %{buildroot}/opt
-
-echo '#!/bin/bash
-if [ "`pidof skype`" != "" ]; then
-    echo "Skype is already running!"
-else
-    LD_LIBRARY_PATH=/opt/skypelibs LD_PRELOAD=/opt/skypelibs/v4l2convert.so exec %{instdir}/skype "$@"
-fi' \
- > %{buildroot}%{_bindir}/skype && chmod +x %{buildroot}%{_bindir}/skype
-%endif
-
-%ifarch %{ix86}
-echo '#!/bin/bash
-if [ "`pidof skype`" != "" ]; then
-    echo "Skype is already running!"
-else
-    LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so exec %{instdir}/skype "$@"
-fi' \
- > %{buildroot}%{_bindir}/skype && chmod +x %{buildroot}%{_bindir}/skype
-%endif
+echo "#!/bin/bash
+LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so %{instdir}/skype" > %{buildroot}%{_bindir}/skype && chmod +x %{buildroot}%{_bindir}/skype
 
 
 %post
 tmp_extract_dir=$(mktemp -d)
 if ! [[ -d $tmp_extract_dir ]]; then
-echo "Failed to create temporary directory"
-rm -r %{tmp_download_dir} 
-exit 1
+ echo "Failed to create temporary directory"
+ rm -r %{tmp_download_dir} 
+ exit 1
 fi
 
-%ifarch x86_64
-%define tmp_skype_dir ${tmp_extract_dir}/%{tar_name}QT-%{version}
-%endif
-
-%ifarch %{ix86}
-%define tmp_skype_dir ${tmp_extract_dir}/%{tar_name}-%{version}
-%endif
-
+%define tmp_skype_dir ${tmp_extract_dir}/skype-%{version}
 cd ${tmp_extract_dir}
-tar jxf %{tmp_download_dir}/%{tar_name}-%{version}.tar.bz2
+tar jxf %{tmp_download_dir}/skype-%{version}.tar.bz2
 
 if ! [[ -d %{tmp_skype_dir} ]]; then
-echo "Extracted file folder missing"
-cd ..
-rm -rf ${tmp_extract_dir}
-rm -r %{tmp_download_dir}
-exit 1
+ echo "Extracted file folder missing"
+ cd ..
+ rm -rf ${tmp_extract_dir}
+ rm -r %{tmp_download_dir}
+ exit 1
 fi
 
 # If any extra files are installed here then 
@@ -192,7 +145,7 @@ fi
 mkdir -p %{instdir}/{avatars,lang,sounds}
 
 cp -f %{tmp_skype_dir}/icons/* %{_iconsdir}
-cp -f %{_iconsdir}/SkypeBlue_48x48.png %{_iconsdir}/skype.png
+cp -f %{_iconsdir}/SkypeBlue_96x96.png %{_iconsdir}/skype.png
 mv -f %{tmp_skype_dir}/skype.conf %{dbusdir}
 mv -f %{tmp_skype_dir}/LICENSE %{docdir}
 mv -f %{tmp_skype_dir}/README %{docdir}
@@ -207,13 +160,9 @@ rm -r ${tmp_extract_dir} %{tmp_download_dir}
 %files
 %ghost %doc %{docdir}
 %{_bindir}/skype
-%ifarch x86_64
-/opt/skypelibs
-%endif
 %attr(0644, root, root) %{_datadir}/applications/skype.desktop
 %ghost %{_iconsdir}/skype.png
 %ghost %{_iconsdir}/SkypeBlue_*.png
 %ghost %{instdir}
 %ghost %{dbusdir}/skype.conf
-
-
+ 

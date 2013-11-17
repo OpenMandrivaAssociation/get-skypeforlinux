@@ -34,13 +34,13 @@ ro.qm
 ro.ts
 ru.qm
 ru.ts
+zh_s.qm
+zh_s.ts
+zh_t.qm
+zh_t.ts
 th.qm
 th.ts
 tr.qm
 tr.ts
 uk.qm
 uk.ts
-zh_s.qm
-zh_s.ts
-zh_t.qm
-zh_t.ts
