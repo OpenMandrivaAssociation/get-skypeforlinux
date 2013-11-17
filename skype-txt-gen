@@ -5,9 +5,9 @@
 # This file should be located in SOURCES in the rpm build tree.
 # $ chmod +x skype-txt-gen
 # CD to SOURCES and run with 
-# $ ./skype-get-txt <version>
+# $ ./skype-txt-gen <version>
 # Example:-
-# $ ./skype-get-txt 4.0.0.8
+# $ ./skype-txt-gen 2.2.0.35
 # New versions of the txt files will be written in SOURCES.
 # skype-<version>.md5 is also generated in SOURCES.
 #########################################################
@@ -68,4 +68,4 @@ getlang
 
 echo $md5chk > skype-$version.md5
 
-rm -rf ../tmp/tmp_down
+rm -rf ../tmp

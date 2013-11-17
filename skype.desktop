@@ -2,9 +2,8 @@
 Name=Skype
 Comment=Skype Internet Telephony
 Comment[ru]=Интернет-телефон Skype
-Exec=skype
+Exec=env PULSE_LATENCY_MSEC=60 skype %U
 Icon=skype
 Terminal=false
 Type=Application
-StartupNotify=false
 Categories=Network;
