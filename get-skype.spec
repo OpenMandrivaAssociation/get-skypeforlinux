@@ -32,7 +32,7 @@ Requires:	pkgconfig(xext)
 Requires:	pkgconfig(QtDBus)
 Requires:	pkgconfig(QtWebKit)
 Requires:	pkgconfig(QtXml)
-Requires:	pkgconfig(QtDBus)
+Requires:	pkgconfig(QtGui)
 Requires:	pkgconfig(QtNetwork)
 Requires:	pkgconfig(QtCore)
 Requires:	libpthread.so.0
