@@ -6,13 +6,13 @@
 %define dbusdir %{_sysconfdir}/dbus-1/system.d
 # When updating tarball check that download size in description
 # is correct
-%define md5 6e9553a6368853c647b1c5ad7f3cc99b
+%define md5 95db8f2072b9acd6f79ed42da3d6db79
 %define tmp_download_dir %{_localstatedir}/lib/%{name}
 
 Summary:	Download and Install Skype
 Name:		get-skype
-Version:	4.2.0.11
-Release:	6
+Version:	4.3.0.37
+Release:	1
 License:	Proprietary
 Group:		Networking/Instant messaging
 URL:		http://www.skype.com
