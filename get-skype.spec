@@ -6,13 +6,13 @@
 %define dbusdir %{_sysconfdir}/dbus-1/system.d
 # When updating tarball check that download size in description
 # is correct
-%define md5 6e9553a6368853c647b1c5ad7f3cc99b
+%define md5 95db8f2072b9acd6f79ed42da3d6db79
 %define tmp_download_dir %{_localstatedir}/lib/%{name}
 
 Summary:	Download and Install Skype
 Name:		get-skype
-Version:	4.2.0.11
-Release:	8
+Version:	4.3.0.37
+Release:	1
 License:	Proprietary
 Group:		Networking/Instant messaging
 URL:		http://www.skype.com
@@ -22,21 +22,21 @@ Requires(pre):	wget
 Requires:	v4l-wrappers
 # (fwang) these requires comes from combine of `objdump -x skype|grep NEEDED`
 # and `strings skype|grep lib.*.so`
-Requires:	libasound.so.2
-Requires:	libXv.so.1
-Requires:	libXss.so.1
+Requires:	pkgconfig(alsa)
+Requires:	pkgconfig(xv)
+Requires:	pkgconfig(xscrnsaver)
 Requires:	librt.so.1
 Requires:	libdl.so.2
-Requires:	libX11.so.6
-Requires:	libXext.so.6
-Requires:	libQtDBus.so.4
-Requires:	libQtWebKit.so.4
-Requires:	libQtXml.so.4
-Requires:	libQtGui.so.4
-Requires:	libQtNetwork.so.4
-Requires:	libQtCore.so.4
+Requires:	pkgconfig(x11)
+Requires:	pkgconfig(xext)
+Requires:	pkgconfig(QtDBus)
+Requires:	pkgconfig(QtWebKit)
+Requires:	pkgconfig(QtXml)
+Requires:	pkgconfig(QtGui)
+Requires:	pkgconfig(QtNetwork)
+Requires:	pkgconfig(QtCore)
 Requires:	libpthread.so.0
-Requires:	libpulse.so.0
+Requires:	pkgconfig(libpulse)
 Requires:	libstdc++.so.6
 Requires:	libm.so.6
 Requires:	libgcc_s.so.1
