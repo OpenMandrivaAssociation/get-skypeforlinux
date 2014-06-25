@@ -22,21 +22,21 @@ Requires(pre):	wget
 Requires:	v4l-wrappers
 # (fwang) these requires comes from combine of `objdump -x skype|grep NEEDED`
 # and `strings skype|grep lib.*.so`
-Requires:	pkgconfig(alsa)
-Requires:	pkgconfig(xv)
-Requires:	pkgconfig(xscrnsaver)
+Requires:	libasound.so.2
+Requires:	libXv.so.1
+Requires:	libXss.so.1
 Requires:	librt.so.1
 Requires:	libdl.so.2
-Requires:	pkgconfig(x11)
-Requires:	pkgconfig(xext)
-Requires:	pkgconfig(QtDBus)
-Requires:	pkgconfig(QtWebKit)
-Requires:	pkgconfig(QtXml)
-Requires:	pkgconfig(QtGui)
-Requires:	pkgconfig(QtNetwork)
-Requires:	pkgconfig(QtCore)
+Requires:	libX11.so.6
+Requires:	libXext.so.6
+Requires:	libQtDBus.so.4
+Requires:	libQtWebKit.so.4
+Requires:	libQtXml.so.4
+Requires:	libQtGui.so.4
+Requires:	libQtNetwork.so.4
+Requires:	libQtCore.so.4
 Requires:	libpthread.so.0
-Requires:	pkgconfig(libpulse)
+Requires:	libpulse.so.0
 Requires:	libstdc++.so.6
 Requires:	libm.so.6
 Requires:	libgcc_s.so.1
