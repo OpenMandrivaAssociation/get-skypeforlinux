@@ -12,7 +12,7 @@
 Summary:	Download and Install Skype
 Name:		get-skype
 Version:	4.3.0.37
-Release:	1
+Release:	2
 License:	Proprietary
 Group:		Networking/Instant messaging
 URL:		http://www.skype.com
