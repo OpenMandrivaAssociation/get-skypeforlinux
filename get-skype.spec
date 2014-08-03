@@ -12,14 +12,14 @@
 Summary:	Download and Install Skype
 Name:		get-skype
 Version:	4.3.0.37
-Release:	2
+Release:	3
 License:	Proprietary
 Group:		Networking/Instant messaging
 URL:		http://www.skype.com
 BuildArch:	noarch
 
 Requires(pre):	wget
-Requires:	v4l-wrappers
+Requires:	libv4l-wrappers
 # (fwang) these requires comes from combine of `objdump -x skype|grep NEEDED`
 # and `strings skype|grep lib.*.so`
 Requires:	libasound.so.2
