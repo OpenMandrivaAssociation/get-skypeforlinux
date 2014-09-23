@@ -12,7 +12,7 @@
 Summary:	Download and Install Skype
 Name:		get-skype
 Version:	4.3.0.37
-Release:	3
+Release:	4
 License:	Proprietary
 Group:		Networking/Instant messaging
 URL:		http://www.skype.com
@@ -56,7 +56,7 @@ Source3:	skype-txt-gen
 # Manually created skype.desktop to replace invalid original in tar.bz2
 Source4:	skype.desktop
 Source5:	get-skype.rpmlintrc
-#ExclusiveArch:	%{ix86} x86_64
+ExclusiveArch:	%{ix86} x86_64
 # Don't generate dependencies for bundled libs
 AutoReqProv:	no
 
