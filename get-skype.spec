@@ -16,8 +16,6 @@ Release:	4
 License:	Proprietary
 Group:		Networking/Instant messaging
 URL:		http://www.skype.com
-BuildArch:	noarch
-
 Requires(pre):	wget
 Requires:	libv4l-wrappers
 # (fwang) these requires comes from combine of `objdump -x skype|grep NEEDED`
