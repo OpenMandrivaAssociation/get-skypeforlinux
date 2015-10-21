@@ -157,10 +157,21 @@ rm -r ${tmp_extract_dir} %{tmp_download_dir}
 
 %files
 %ghost %doc %{docdir}
+%ghost %doc %{docdir}/*
 %{_bindir}/skype
 %attr(0644, root, root) %{_datadir}/applications/skype.desktop
 %ghost %{_iconsdir}/skype.png
 %ghost %{_iconsdir}/SkypeBlue_*.png
 %ghost %{instdir}
+%ghost %{langdir}
+%ghost %{langdir}/*
+%ghost %{avatardir}
+%ghost %{avatardir}/*
+%ghost %{sounddir}
+%ghost %{sounddir}/*
+%ghost %{instdir}/skype
+%ghost %{instdir}/skype/*
+%ghost %{instdir}/icons
+%ghost %{instdir}/icons/*
 %ghost %{dbusdir}/skype.conf
  
