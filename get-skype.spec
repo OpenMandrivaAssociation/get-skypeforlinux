@@ -1,12 +1,13 @@
 %define docdir %{_datadir}/doc/skypeforlinux
 %define tmp_download_dir %{_localstatedir}/lib/%{oname}
+%bcond_with stable
 
 %define oname skypeforlinux
 
 Summary:	Download and Install Electron (Chromium)-based Skype
 Name:		get-%{oname}
 Version:	8.15.76.1
-Release:	1
+Release:	3
 License:	Proprietary
 Group:		Networking/Instant messaging
 Url:		http://www.skype.com
@@ -32,7 +33,11 @@ mkdir -p %{tmp_download_dir}
 [[ -d %{tmp_download_dir} ]] || exit 1
 cd %{tmp_download_dir} || exit 1
 
+%if %{with stable}
 wget --force-clobber --timeout=30 --tries=3 "https://repo.skype.com/rpm/stable/skypeforlinux_%{version}-1.x86_64.rpm"
+%else
+wget --force-clobber --timeout=30 --tries=3 "https://repo.skype.com/rpm/unstable/skypeforlinux_%{version}-1.x86_64.rpm"
+%endif
 
 %post
 tmp_extract_dir=$(mktemp -d)
