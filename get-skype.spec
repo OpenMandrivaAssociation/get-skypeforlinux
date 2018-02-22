@@ -1,13 +1,13 @@
 %define docdir %{_datadir}/doc/skypeforlinux
 %define tmp_download_dir %{_localstatedir}/lib/%{oname}
-%bcond_with stable
+%bcond_without stable
 
 %define oname skypeforlinux
 
 Summary:	Download and Install Electron (Chromium)-based Skype
 Name:		get-%{oname}
-Version:	8.15.76.1
-Release:	3
+Version:	8.16.0.4
+Release:	1
 License:	Proprietary
 Group:		Networking/Instant messaging
 Url:		http://www.skype.com
