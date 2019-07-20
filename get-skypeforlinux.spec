@@ -13,7 +13,7 @@ Url:		http://www.skype.com
 Requires:	wget
 Suggests:	seahorse
 Provides:	skype = %{EVRD}
-ExclusiveArch:	x86_64
+ExclusiveArch:	%{x86_64}
 
 %description
 This is an installer for Skype-%{version}.
