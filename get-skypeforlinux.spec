@@ -5,7 +5,7 @@
 
 Summary:	Download and Install Electron (Chromium)-based Skype
 Name:		get-%{oname}
-Version:	8.44.0.40
+Version:	8.49.0.49
 Release:	1
 License:	Proprietary
 Group:		Networking/Instant messaging
@@ -13,7 +13,7 @@ Url:		http://www.skype.com
 Requires:	wget
 Suggests:	seahorse
 Provides:	skype = %{EVRD}
-ExclusiveArch:	x86_64
+ExclusiveArch:	%{x86_64}
 
 %description
 This is an installer for Skype-%{version}.
