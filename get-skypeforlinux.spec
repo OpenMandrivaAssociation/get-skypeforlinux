@@ -5,7 +5,7 @@
 
 Summary:	Download and Install Electron (Chromium)-based Skype
 Name:		get-%{oname}
-Version:	8.63.0.76
+Version:	8.64.0.67
 Release:	1
 License:	Proprietary
 Group:		Networking/Instant messaging
