@@ -9,7 +9,7 @@ Version:	8.86.0.407
 Release:	2
 License:	Proprietary
 Group:		Networking/Instant messaging
-Url:		http://www.skype.com
+Url:		https://www.skype.com
 Requires:	wget
 Suggests:	seahorse
 Provides:	skype = %{EVRD}
